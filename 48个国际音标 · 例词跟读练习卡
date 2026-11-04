@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>48个国际音标 · 例词跟读练习卡</title>
+<style>
+  :root{
+    --cream:#FFF7EE;
+    --orange:#E8833A;
+    --orange-soft:#FDEBDC;
+    --blue:#4A6FA5;
+    --blue-soft:#E4EEF9;
+    --yellow:#F5CE5E;
+    --yellow-soft:#FDF6DF;
+    --green:#4CAF7D;
+    --red:#E05C5C;
+    --ink:#3A3A4A;
+    --muted:#8A8A9A;
+    --line:#EDE2D6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(245,206,94,.18), transparent 42%),
+      radial-gradient(circle at 88% 22%, rgba(74,111,165,.12), transparent 40%),
+      radial-gradient(circle at 50% 95%, rgba(232,131,58,.12), transparent 45%);
+    background-attachment:fixed;
+  }
+
+  /* 顶部进度条 */
+  #progress{
+    position:fixed;top:0;left:0;height:4px;width:0%;
+    background:linear-gradient(90deg,var(--yellow),var(--orange),var(--blue));
+    z-index:99;transition:width .12s linear;border-radius:0 4px 4px 0;
+  }
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 clamp(16px,4vw,32px);}
+  section{padding:clamp(48px,8vw,88px) 0;}
+
+  .eyebrow{
+    display:inline-block;font-size:13px;letter-spacing:2px;
+    color:var(--orange);font-weight:700;background:var(--orange-soft);
+    padding:5px 14px;border-radius:999px;margin-bottom:14px;
+  }
+  h2{
+    font-size:clamp(22px,3.4vw,32px);font-weight:800;letter-spacing:.5px;
+    margin-bottom:8px;
+  }
+  .sub{color:var(--muted);font-size:clamp(13px,1.8vw,15px);margin-bottom:26px;}
+
+  /* 首屏 */
+  .hero{
+    min-height:100svh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    padding:80px 20px;
+  }
+  .hero h1{
+    font-size:clamp(38px,9vw,76px);font-weight:900;letter-spacing:2px;
+    line-height:1.15;
+    background:linear-gradient(120deg,var(--orange) 10%,#D9622B 45%,var(--blue) 95%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero .big{
+    font-size:clamp(20px,3.6vw,30px);font-weight:800;color:var(--blue);
+    margin-top:6px;letter-spacing:6px;
+  }
+  .hero .tags{
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:28px 0 34px;
+  }
+  .tag{
+    background:#fff;border:1.5px solid var(--line);border-radius:999px;
+    padding:7px 18px;font-size:14px;font-weight:600;color:var(--muted);
+    box-shadow:0 3px 10px rgba(180,150,120,.08);
+  }
+  .btn-main{
+    display:inline-block;border:none;cursor:pointer;
+    background:linear-gradient(135deg,var(--orange),#D9622B);
+    color:#fff;font-size:17px;font-weight:800;letter-spacing:2px;
+    padding:16px 44px;border-radius:999px;
+    box-shadow:0 10px 26px rgba(217,98,43,.32);
+    transition:transform .2s, box-shadow .2s;
+    font-family:inherit;
+  }
+  .btn-main:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(217,98,43,.4);}
+  .btn-main:active{transform:translateY(0);}
+
+  .bounce{animation:bounce 2.4s ease-in-out infinite;}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* 两关卡片 */
+  .two-gates{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  @media(max-width:680px){.two-gates{grid-template-columns:1fr;}}
+  .gate{
+    border-radius:26px;padding:30px 26px;position:relative;overflow:hidden;
+    border:2px solid transparent;background:#fff;
+    box-shadow:0 8px 26px rgba(180,150,120,.1);
+  }
+  .gate.v{border-color:#F6C9A4;background:linear-gradient(180deg,#FFF6EE,#fff);}
+  .gate.c{border-color:#BFD3EC;background:linear-gradient(180deg,#F2F7FD,#fff);}
+  .gate h3{font-size:22px;font-weight:800;margin-bottom:4px;}
+  .gate.v h3{color:var(--orange);}
+  .gate.c h3{color:var(--blue);}
+  .gate .num{font-size:44px;font-weight:900;line-height:1;margin:10px 0 4px;opacity:.85;}
+  .gate.v .num{color:var(--orange);}
+  .gate.c .num{color:var(--blue);}
+  .gate p{color:var(--muted);font-size:14.5px;}
+
+  /* 音标卡片 */
+  .grid{display:grid;gap:14px;}
+  .grid.g4{grid-template-columns:repeat(4,1fr);}
+  .grid.g3{grid-template-columns:repeat(3,1fr);}
+  .grid.g2{grid-template-columns:repeat(2,1fr);}
+  @media(max-width:820px){
+    .grid.g4{grid-template-columns:repeat(3,1fr);}
+    .grid.g3{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:560px){
+    .grid.g4{grid-template-columns:repeat(2,1fr);}
+    .grid.g2{grid-template-columns:1fr;}
+  }
+
+  .card{
+    border:2px solid var(--line);
+    background:#fff;border-radius:20px;padding:10px 8px;
+    display:flex;flex-direction:column;align-items:center;gap:0;
+    transition:transform .18s, box-shadow .18s, border-color .18s;
+    box-shadow:0 4px 14px rgba(180,150,120,.08);
+    text-align:center;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(180,150,120,.16);}
+  .card .ipa{font-size:clamp(24px,3.6vw,32px);font-weight:800;letter-spacing:1px;color:var(--blue);}
+  .card .word{font-size:13px;color:var(--muted);}
+  .card.warm{border-color:#F7D4B4;background:linear-gradient(180deg,#FFF8F1,#fff);}
+  .card.warm .ipa{color:#D9622B;}
+  .card.cool{border-color:#C6D9EF;background:linear-gradient(180deg,#F4F9FF,#fff);}
+  .card.sun{border-color:#F5E1A6;background:linear-gradient(180deg,#FFFCEF,#fff);}
+  .card.sun .ipa{color:#C99A18;}
+
+  /* 可点击的音标/单词按钮 */
+  .ipa-hit,.word-hit{
+    width:100%;
+    font-family:inherit;
+    cursor:pointer;
+    border:none;
+    background:transparent;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    padding:6px 4px;
+    border-radius:12px;
+    transition:background .16s, transform .1s;
+  }
+  .ipa-hit:hover,.word-hit:hover{ background:rgba(232,131,58,.10); }
+  .ipa-hit:active,.word-hit:active{ transform:scale(.97); }
+
+  /* 大卡片 */
+  .big-card{
+    text-align:left;
+    border:2px solid var(--line);background:#fff;border-radius:22px;
+    padding:22px 20px;transition:transform .18s, box-shadow .18s;
+    box-shadow:0 4px 16px rgba(180,150,120,.08);
+  }
+  .big-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(180,150,120,.16);}
+  .big-card .ipa-xl{font-size:38px;font-weight:900;color:var(--orange);letter-spacing:1px;}
+  .big-card .tip{
+    display:inline-block;background:var(--yellow-soft);color:#A5791A;
+    font-size:13px;font-weight:700;padding:3px 12px;border-radius:999px;margin:8px 0;
+  }
+  .big-card .desc{font-size:14.5px;color:var(--ink);}
+  .big-card .desc b{color:var(--blue);}
+  .big-card .prac{margin-top:10px;font-size:13px;color:var(--muted);}
+  .big-card.cool .ipa-xl{color:var(--blue);}
+  .big-card.sun .ipa-xl{color:#C99A18;}
+
+  .big-card .ipa-hit{
+    display:inline-flex;
+    width:auto;
+    align-items:flex-start;
+    padding:2px 10px;
+    margin-left:-10px;
+    border-radius:10px;
+  }
+  .big-card .ipa-hit:hover{ background:rgba(232,131,58,.12); }
+
+  /* 行内可点击单词 */
+  .word-inline{
+    font-family:inherit;
+    font-size:inherit;
+    font-weight:700;
+    color:var(--blue);
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    border-bottom:2px dotted rgba(74,111,165,.35);
+    padding:0 2px;
+    border-radius:4px;
+    transition:background .15s, color .15s;
+  }
+  .word-inline:hover{ background:var(--blue-soft); color:#2E5688; }
+  .word-inline:active{ transform:scale(.97); }
+
+  /* 卡片中的单词行 */
+  .word-line{
+    font-size:13px;
+    color:var(--muted);
+    text-align:center;
+    padding:4px 2px;
+    line-height:1.6;
+  }
+
+  /* 清浊辅音行 */
+  .pair{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    gap:10px;margin-bottom:12px;
+  }
+  .ph{
+    border-radius:16px;padding:8px 6px;
+    display:flex;flex-direction:column;align-items:center;gap:0;
+    border:2px solid;transition:transform .16s, box-shadow .16s;
+    background:#fff;
+  }
+  .ph:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(180,150,120,.16);}
+  .ph .sym{font-size:24px;font-weight:800;}
+  .ph .ex{font-size:12.5px;opacity:.8;}
+  .ph.clear{border-color:#BFD3EC;background:linear-gradient(180deg,#F3F8FE,#fff);color:var(--blue);}
+  .ph.voiced{border-color:#F7D4B4;background:linear-gradient(180deg,#FFF7F0,#fff);color:#D9622B;}
+  .ph .ipa-hit,.ph .word-hit{ width:100%; padding:3px 2px; }
+  .ph .ipa-hit:hover,.ph .word-hit:hover{ background:rgba(232,131,58,.10); }
+  .arrow{color:var(--muted);font-size:16px;font-weight:700;}
+  .note{font-size:13.5px;color:var(--muted);margin-top:6px;}
+
+  /* 测验 */
+  .quiz-q{
+    background:#fff;border:2px solid var(--line);border-radius:20px;
+    padding:20px 22px;margin-bottom:16px;
+    box-shadow:0 4px 16px rgba(180,150,120,.08);
+  }
+  .quiz-q .q-title{font-size:16px;font-weight:800;margin-bottom:12px;}
+  .quiz-q .q-title span{color:var(--orange);}
+  .opts{display:flex;gap:10px;flex-wrap:wrap;}
+  .opt{
+    font-family:inherit;cursor:pointer;font-size:15px;font-weight:700;
+    border:2px solid var(--line);background:#FFFDFA;color:var(--ink);
+    padding:9px 20px;border-radius:999px;transition:.16s;
+  }
+  .opt:hover{border-color:var(--orange);color:var(--orange);}
+  .opt.right{background:#E7F6EE;border-color:var(--green);color:#2E8B57;}
+  .opt.wrong{background:#FDECEC;border-color:var(--red);color:#C94A4A;}
+  .quiz-q.answered .opt{cursor:default;}
+  .fb{font-size:13.5px;margin-top:10px;font-weight:700;min-height:20px;}
+  .fb.ok{color:#2E8B57;}
+  .fb.no{color:#C94A4A;}
+
+  /* 口诀 */
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media(max-width:680px){.rules{grid-template-columns:1fr;}}
+  .rule{
+    background:#fff;border-radius:22px;padding:24px 24px;
+    border-left:6px solid var(--orange);
+    box-shadow:0 6px 20px rgba(180,150,120,.1);
+  }
+  .rule:nth-child(2){border-left-color:var(--blue);}
+  .rule:nth-child(3){border-left-color:var(--yellow);}
+  .rule:nth-child(4){border-left-color:var(--green);}
+  .rule h4{font-size:17px;font-weight:800;margin-bottom:8px;}
+  .rule p{font-size:14.5px;color:#5B5B6B;}
+  .rule .sym{color:var(--blue);font-weight:700;}
+
+  /* 结尾 */
+  .final{text-align:center;padding-bottom:120px;}
+  .final .medal{font-size:64px;animation:bounce 2.6s ease-in-out infinite;}
+  .final h2{font-size:clamp(26px,4.4vw,40px);margin:8px 0 10px;}
+  .task{
+    display:inline-block;background:#fff;border:2px dashed #F0C9A8;
+    border-radius:22px;padding:20px 30px;margin-top:18px;
+    font-size:15px;color:#6A6A7A;text-align:left;max-width:560px;
+  }
+
+  /* 动效 */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .65s ease, transform .65s ease;}
+  .reveal.show{opacity:1;transform:none;}
+  .pop{animation:pop .4s ease;}
+  @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.07)}100%{transform:scale(1)}}
+
+  .hint{font-size:12.5px;color:#B0A79C;text-align:center;margin-top:18px;}
+
+  /* 发音状态提示 */
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+    background:rgba(58,58,74,.92);color:#fff;font-size:13.5px;font-weight:600;
+    padding:10px 22px;border-radius:999px;z-index:200;
+    opacity:0;transition:opacity .25s, transform .25s;pointer-events:none;
+    max-width:calc(100vw - 40px);text-align:center;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="toast" id="toast"></div>
+
+<!-- 首屏 -->
+<header class="hero">
+  <h1>48 个国际音标</h1>
+  <div class="big">易老师英语课堂 例词跟读练习卡</div>
+  <div class="tags">
+    <span class="tag">元音 20 个</span>
+    <span class="tag">辅音 28 个</span>
+    <span class="tag">真人发音 · 跟读练习</span>
+  </div>
+  <button class="btn-main" onclick="document.getElementById('gates').scrollIntoView()">开始练习吧</button>
+  <p class="hint">💡 点击音标听标准例词发音，点击单词直接朗读</p>
+</header>
+
+<!-- 两关总览 -->
+<section id="gates">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">今天要闯两关</span>
+      <h2>48 个音标分成两大类，先认识它们的家</h2>
+      <p class="sub">元音靠气流自由通过，辅音靠嘴巴和舌头制造阻碍。</p>
+    </div>
+    <div class="two-gates">
+      <div class="gate v reveal">
+        <h3>第一关 · 元音</h3>
+        <div class="num">20</div>
+        <p>12 个单元音 ＋ 8 个双元音</p>
+      </div>
+      <div class="gate c reveal">
+        <h3>第二关 · 辅音</h3>
+        <div class="num">28</div>
+        <p>20 个成对清浊音 ＋ 8 个其他辅音</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 元音城堡 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">第一关 · 元音城堡</span>
+      <h2>为什么嘴巴张得不一样，声音就不一样？</h2>
+      <p class="sub">摸摸你的喉咙，发“啊——”的时候手在抖。这就是元音：气流从嘴巴里顺畅地跑出来。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 个单元音 -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">12 个单元音</span>
+      <h2>先认脸 · 每个音标读两秒</h2>
+      <p class="sub">点击音标听它的标准例词，点击单词单独听。</p>
+    </div>
+    <div class="grid g4">
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/iː/"><span class="ipa">/iː/</span></button>
+        <button class="word-hit" data-word="see"><span class="word">see 看见</span></button>
+      </div>
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/ɪ/"><span class="ipa">/ɪ/</span></button>
+        <button class="word-hit" data-word="sit"><span class="word">sit 坐</span></button>
+      </div>
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/e/"><span class="ipa">/e/</span></button>
+        <button class="word-hit" data-word="egg"><span class="word">egg 鸡蛋</span></button>
+      </div>
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/æ/"><span class="ipa">/æ/</span></button>
+        <button class="word-hit" data-word="cat"><span class="word">cat 猫</span></button>
+      </div>
+
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/ɑː/"><span class="ipa">/ɑː/</span></button>
+        <button class="word-hit" data-word="car"><span class="word">car 汽车</span></button>
+      </div>
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/ɒ/"><span class="ipa">/ɒ/</span></button>
+        <button class="word-hit" data-word="dog"><span class="word">dog 狗</span></button>
+      </div>
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/ɔː/"><span class="ipa">/ɔː/</span></button>
+        <button class="word-hit" data-word="door"><span class="word">door 门</span></button>
+      </div>
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/uː/"><span class="ipa">/uː/</span></button>
+        <button class="word-hit" data-word="food"><span class="word">food 食物</span></button>
+      </div>
+
+      <div class="card sun reveal">
+        <button class="ipa-hit" data-ipa="/ʊ/"><span class="ipa">/ʊ/</span></button>
+        <button class="word-hit" data-word="book"><span class="word">book 书</span></button>
+      </div>
+      <div class="card sun reveal">
+        <button class="ipa-hit" data-ipa="/ʌ/"><span class="ipa">/ʌ/</span></button>
+        <button class="word-hit" data-word="cup"><span class="word">cup 杯子</span></button>
+      </div>
+      <div class="card sun reveal">
+        <button class="ipa-hit" data-ipa="/ɜː/"><span class="ipa">/ɜː/</span></button>
+        <button class="word-hit" data-word="bird"><span class="word">bird 鸟</span></button>
+      </div>
+      <div class="card sun reveal">
+        <button class="ipa-hit" data-ipa="/ə/"><span class="ipa">/ə/</span></button>
+        <button class="word-hit" data-word="about"><span class="word">about 关于</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 前元音四兄妹 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">前元音</span>
+      <h2>前元音四兄妹 · 嘴巴越张越大</h2>
+      <p class="sub">舌尖抵住下齿，舌前部抬高，从紧到松、从小张到大张。</p>
+    </div>
+    <div class="grid g2">
+      <div class="big-card warm reveal">
+        <button class="ipa-hit" data-ipa="/iː/"><span class="ipa-xl">/iː/</span></button>
+        <div class="tip">嘴角向两边咧，像微笑</div>
+        <div class="desc">长长的“衣——”，舌尖抵下齿：
+          <button class="word-inline" data-word="see">see</button> /
+          <button class="word-inline" data-word="tree">tree</button> /
+          <button class="word-inline" data-word="cheese">cheese</button>
+        </div>
+        <div class="prac">小练习：<button class="word-inline" data-word="sheep">sheep 绵羊</button> 🔊</div>
+      </div>
+      <div class="big-card warm reveal">
+        <button class="ipa-hit" data-ipa="/ɪ/"><span class="ipa-xl">/ɪ/</span></button>
+        <div class="tip">嘴放松，短而快</div>
+        <div class="desc">短短的“衣”，比 /iː/ 更松更短：
+          <button class="word-inline" data-word="sit">sit</button> /
+          <button class="word-inline" data-word="big">big</button> /
+          <button class="word-inline" data-word="fish">fish</button>
+        </div>
+        <div class="prac">小练习：<button class="word-inline" data-word="ship">ship 轮船</button> 🔊</div>
+      </div>
+      <div class="big-card warm reveal">
+        <button class="ipa-hit" data-ipa="/e/"><span class="ipa-xl">/e/</span></button>
+        <div class="tip">嘴半开，能塞一根手指</div>
+        <div class="desc">像“哎”的短音：
+          <button class="word-inline" data-word="egg">egg</button> /
+          <button class="word-inline" data-word="pen">pen</button> /
+          <button class="word-inline" data-word="red">red</button>
+        </div>
+        <div class="prac">小练习：<button class="word-inline" data-word="head">head 头</button> 🔊</div>
+      </div>
+      <div class="big-card warm reveal">
+        <button class="ipa-hit" data-ipa="/æ/"><span class="ipa-xl">/æ/</span></button>
+        <div class="tip">嘴张大，能塞两根手指</div>
+        <div class="desc">像“安”但嘴更开、更扁：
+          <button class="word-inline" data-word="cat">cat</button> /
+          <button class="word-inline" data-word="bag">bag</button> /
+          <button class="word-inline" data-word="apple">apple</button>
+        </div>
+        <div class="prac">小练习：<button class="word-inline" data-word="hand">hand 手</button> 🔊</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 后元音五兄弟 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">后元音</span>
+      <h2>后元音五兄弟 · 嘴巴圆圆的</h2>
+      <p class="sub">舌头往后缩，嘴唇慢慢噘起来。</p>
+    </div>
+    <div class="grid g3">
+      <div class="big-card cool reveal">
+        <button class="ipa-hit" data-ipa="/ɑː/"><span class="ipa-xl">/ɑː/</span></button>
+        <div class="tip">嘴巴张大</div>
+        <div class="desc">长音“啊——”，
+          <button class="word-inline" data-word="car">car</button> /
+          <button class="word-inline" data-word="far">far</button> /
+          <button class="word-inline" data-word="father">father</button>
+        </div>
+      </div>
+      <div class="big-card cool reveal">
+        <button class="ipa-hit" data-ipa="/ɒ/"><span class="ipa-xl">/ɒ/</span></button>
+        <div class="tip">嘴圆圆</div>
+        <div class="desc">短音“哦”，
+          <button class="word-inline" data-word="dog">dog</button> /
+          <button class="word-inline" data-word="box">box</button> /
+          <button class="word-inline" data-word="hot">hot</button>
+        </div>
+      </div>
+      <div class="big-card cool reveal">
+        <button class="ipa-hit" data-ipa="/ɔː/"><span class="ipa-xl">/ɔː/</span></button>
+        <div class="tip">噘嘴更圆</div>
+        <div class="desc">长音“哦——”，
+          <button class="word-inline" data-word="door">door</button> /
+          <button class="word-inline" data-word="ball">ball</button> /
+          <button class="word-inline" data-word="four">four</button>
+        </div>
+      </div>
+      <div class="big-card cool reveal">
+        <button class="ipa-hit" data-ipa="/uː/"><span class="ipa-xl">/uː/</span></button>
+        <div class="tip">噘成小圆筒</div>
+        <div class="desc">长音“乌——”，
+          <button class="word-inline" data-word="food">food</button> /
+          <button class="word-inline" data-word="moon">moon</button> /
+          <button class="word-inline" data-word="blue">blue</button>
+        </div>
+      </div>
+      <div class="big-card cool reveal">
+        <button class="ipa-hit" data-ipa="/ʊ/"><span class="ipa-xl">/ʊ/</span></button>
+        <div class="tip">嘴放松</div>
+        <div class="desc">短音“乌”，
+          <button class="word-inline" data-word="book">book</button> /
+          <button class="word-inline" data-word="look">look</button> /
+          <button class="word-inline" data-word="good">good</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 中元音三姐妹 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">中元音</span>
+      <h2>中元音三姐妹 · 嘴巴最放松</h2>
+      <p class="sub">舌头放在中间，不要用力。</p>
+    </div>
+    <div class="grid g3">
+      <div class="big-card sun reveal">
+        <button class="ipa-hit" data-ipa="/ʌ/"><span class="ipa-xl">/ʌ/</span></button>
+        <div class="tip">嘴半开</div>
+        <div class="desc">短“啊”——
+          <button class="word-inline" data-word="cup">cup 杯子</button> /
+          <button class="word-inline" data-word="bus">bus 公交车</button> /
+          <button class="word-inline" data-word="sun">sun 太阳</button>
+        </div>
+      </div>
+      <div class="big-card sun reveal">
+        <button class="ipa-hit" data-ipa="/ɜː/"><span class="ipa-xl">/ɜː/</span></button>
+        <div class="tip">嘴扁扁</div>
+        <div class="desc">长“呢——”
+          <button class="word-inline" data-word="bird">bird 鸟</button> /
+          <button class="word-inline" data-word="girl">girl 女孩</button> /
+          <button class="word-inline" data-word="nurse">nurse 护士</button>
+        </div>
+      </div>
+      <div class="big-card sun reveal">
+        <button class="ipa-hit" data-ipa="/ə/"><span class="ipa-xl">/ə/</span></button>
+        <div class="tip">最放松</div>
+        <div class="desc">轻轻的“呢”：
+          <button class="word-inline" data-word="about">about 关于</button> /
+          <button class="word-inline" data-word="teacher">teacher 老师</button> /
+          <button class="word-inline" data-word="banana">banana 香蕉</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 双元音 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">8 个双元音</span>
+      <h2>从一个音滑到另一个音</h2>
+      <p class="sub">前面的音读得重又长，后面轻轻带过去。</p>
+    </div>
+    <div class="grid g4">
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/eɪ/"><span class="ipa">/eɪ/</span></button>
+        <div class="word-line">像字母 A ·
+          <button class="word-inline" data-word="cake">cake</button> /
+          <button class="word-inline" data-word="name">name</button>
+        </div>
+      </div>
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/aɪ/"><span class="ipa">/aɪ/</span></button>
+        <div class="word-line">像字母 I ·
+          <button class="word-inline" data-word="bike">bike</button> /
+          <button class="word-inline" data-word="my">my</button>
+        </div>
+      </div>
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/ɔɪ/"><span class="ipa">/ɔɪ/</span></button>
+        <div class="word-line">“哦衣”滑过去 ·
+          <button class="word-inline" data-word="boy">boy</button> /
+          <button class="word-inline" data-word="toy">toy</button>
+        </div>
+      </div>
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/əʊ/"><span class="ipa">/əʊ/</span></button>
+        <div class="word-line">像字母 O ·
+          <button class="word-inline" data-word="go">go</button> /
+          <button class="word-inline" data-word="nose">nose</button>
+        </div>
+      </div>
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/aʊ/"><span class="ipa">/aʊ/</span></button>
+        <div class="word-line">“啊乌”滑过去 ·
+          <button class="word-inline" data-word="cow">cow</button> /
+          <button class="word-inline" data-word="house">house</button>
+        </div>
+      </div>
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/ɪə/"><span class="ipa">/ɪə/</span></button>
+        <div class="word-line">“衣呢”滑过去 ·
+          <button class="word-inline" data-word="ear">ear</button> /
+          <button class="word-inline" data-word="deer">deer</button>
+        </div>
+      </div>
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/eə/"><span class="ipa">/eə/</span></button>
+        <div class="word-line">“哎呢”滑过去 ·
+          <button class="word-inline" data-word="hair">hair</button> /
+          <button class="word-inline" data-word="bear">bear</button>
+        </div>
+      </div>
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/ʊə/"><span class="ipa">/ʊə/</span></button>
+        <div class="word-line">“乌呢”滑过去 ·
+          <button class="word-inline" data-word="tour">tour</button> /
+          <button class="word-inline" data-word="poor">poor</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 清浊辅音引入 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">第二关 · 辅音</span>
+      <h2>为什么有的音喉咙不抖，有的却抖得厉害？</h2>
+      <p class="sub">摸摸喉咙：发 /s/ 喉咙不动，发 /z/ 喉咙在抖。这就是清辅音和浊辅音的区别。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 清浊辅音 第一组 -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal">
+      <h2 style="font-size:22px">成对清浊辅音 · 第一组</h2>
+      <p class="sub">蓝色是清辅音（喉咙不抖），橘色是浊辅音（喉咙在抖）。</p>
+    </div>
+    <div class="grid g2" style="gap:26px">
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/p/"><span class="sym">/p/</span></button>
+            <button class="word-hit" data-word="pen"><span class="ex">pen 笔</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/b/"><span class="sym">/b/</span></button>
+            <button class="word-hit" data-word="book"><span class="ex">book 书</span></button>
+          </div>
+        </div>
+        <div class="note">双唇紧闭，再突然张开</div>
+      </div>
+
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/t/"><span class="sym">/t/</span></button>
+            <button class="word-hit" data-word="ten"><span class="ex">ten 十</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/d/"><span class="sym">/d/</span></button>
+            <button class="word-hit" data-word="dog"><span class="ex">dog 狗</span></button>
+          </div>
+        </div>
+        <div class="note">舌尖轻碰上牙床</div>
+      </div>
+
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/k/"><span class="sym">/k/</span></button>
+            <button class="word-hit" data-word="cat"><span class="ex">cat 猫</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/g/"><span class="sym">/g/</span></button>
+            <button class="word-hit" data-word="go"><span class="ex">go 去</span></button>
+          </div>
+        </div>
+        <div class="note">舌后跟顶起来</div>
+      </div>
+
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/f/"><span class="sym">/f/</span></button>
+            <button class="word-hit" data-word="fish"><span class="ex">fish 鱼</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/v/"><span class="sym">/v/</span></button>
+            <button class="word-hit" data-word="very"><span class="ex">very 非常</span></button>
+          </div>
+        </div>
+        <div class="note">上牙咬下嘴唇</div>
+      </div>
+
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/s/"><span class="sym">/s/</span></button>
+            <button class="word-hit" data-word="sun"><span class="ex">sun 太阳</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/z/"><span class="sym">/z/</span></button>
+            <button class="word-hit" data-word="zoo"><span class="ex">zoo 动物园</span></button>
+          </div>
+        </div>
+        <div class="note">像小蛇 / 小蜜蜂嗡嗡</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 清浊辅音 第二组 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <h2 style="font-size:22px">成对清浊辅音 · 第二组</h2>
+      <p class="sub">舌头位置更特别，注意口型。</p>
+    </div>
+    <div class="grid g2" style="gap:26px">
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/θ/"><span class="sym">/θ/</span></button>
+            <button class="word-hit" data-word="think"><span class="ex">think 想</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/ð/"><span class="sym">/ð/</span></button>
+            <button class="word-hit" data-word="this"><span class="ex">this 这个</span></button>
+          </div>
+        </div>
+        <div class="note">轻咬舌尖，吹气</div>
+      </div>
+
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/ʃ/"><span class="sym">/ʃ/</span></button>
+            <button class="word-hit" data-word="she"><span class="ex">she 她</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/ʒ/"><span class="sym">/ʒ/</span></button>
+            <button class="word-hit" data-word="vision"><span class="ex">vision 视力</span></button>
+          </div>
+        </div>
+        <div class="note">嘶嘴吹气“嘘——”</div>
+      </div>
+
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/tʃ/"><span class="sym">/tʃ/</span></button>
+            <button class="word-hit" data-word="chair"><span class="ex">chair 椅子</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/dʒ/"><span class="sym">/dʒ/</span></button>
+            <button class="word-hit" data-word="jump"><span class="ex">jump 跳</span></button>
+          </div>
+        </div>
+        <div class="note">像“吃”和“知”</div>
+      </div>
+
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/tr/"><span class="sym">/tr/</span></button>
+            <button class="word-hit" data-word="tree"><span class="ex">tree 树</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/dr/"><span class="sym">/dr/</span></button>
+            <button class="word-hit" data-word="dream"><span class="ex">dream 梦</span></button>
+          </div>
+        </div>
+        <div class="note">像“戳”和“捉”</div>
+      </div>
+
+      <div class="reveal">
+        <div class="pair">
+          <div class="ph clear">
+            <button class="ipa-hit" data-ipa="/ts/"><span class="sym">/ts/</span></button>
+            <button class="word-hit" data-word="cats"><span class="ex">cats 猫（复数）</span></button>
+          </div>
+          <span class="arrow">↔</span>
+          <div class="ph voiced">
+            <button class="ipa-hit" data-ipa="/dz/"><span class="sym">/dz/</span></button>
+            <button class="word-hit" data-word="beds"><span class="ex">beds 床（复数）</span></button>
+          </div>
+        </div>
+        <div class="note">词尾常见</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 其他 8 个辅音 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">其他 8 个辅音</span>
+      <h2>鼻子和舌头帮忙</h2>
+      <p class="sub">3 个鼻音 ＋ 2 个似拼音 ＋ 2 个半元音 ＋ 1 个哈气音</p>
+    </div>
+    <div class="grid g4">
+      <div class="card sun reveal">
+        <button class="ipa-hit" data-ipa="/m/"><span class="ipa">/m/</span></button>
+        <div class="word-line">闭嘴鼻音“嗯——”<br>
+          <button class="word-inline" data-word="mum">mum</button> /
+          <button class="word-inline" data-word="milk">milk</button>
+        </div>
+      </div>
+      <div class="card sun reveal">
+        <button class="ipa-hit" data-ipa="/n/"><span class="ipa">/n/</span></button>
+        <div class="word-line">张嘴鼻音“嗯”<br>
+          <button class="word-inline" data-word="no">no</button> /
+          <button class="word-inline" data-word="nose">nose</button>
+        </div>
+      </div>
+      <div class="card sun reveal">
+        <button class="ipa-hit" data-ipa="/ŋ/"><span class="ipa">/ŋ/</span></button>
+        <div class="word-line">后鼻音“eng”<br>
+          <button class="word-inline" data-word="sing">sing</button> /
+          <button class="word-inline" data-word="long">long</button>
+        </div>
+      </div>
+      <div class="card sun reveal">
+        <button class="ipa-hit" data-ipa="/h/"><span class="ipa">/h/</span></button>
+        <div class="word-line">哈气“喝”<br>
+          <button class="word-inline" data-word="hat">hat</button> /
+          <button class="word-inline" data-word="hello">hello</button>
+        </div>
+      </div>
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/l/"><span class="ipa">/l/</span></button>
+        <div class="word-line">舌尖顶上牙床<br>
+          <button class="word-inline" data-word="leg">leg</button> /
+          <button class="word-inline" data-word="look">look</button>
+        </div>
+      </div>
+      <div class="card cool reveal">
+        <button class="ipa-hit" data-ipa="/r/"><span class="ipa">/r/</span></button>
+        <div class="word-line">舌尖卷起不碰上颚<br>
+          <button class="word-inline" data-word="red">red</button> /
+          <button class="word-inline" data-word="rain">rain</button>
+        </div>
+      </div>
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/j/"><span class="ipa">/j/</span></button>
+        <div class="word-line">像短“衣”滑过去<br>
+          <button class="word-inline" data-word="yes">yes</button> /
+          <button class="word-inline" data-word="you">you</button>
+        </div>
+      </div>
+      <div class="card warm reveal">
+        <button class="ipa-hit" data-ipa="/w/"><span class="ipa">/w/</span></button>
+        <div class="word-line">像短“乌”滑过去<br>
+          <button class="word-inline" data-word="we">we</button> /
+          <button class="word-inline" data-word="water">water</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 综合练习 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">综合练习</span>
+      <h2>听一听，选一选</h2>
+      <p class="sub">读出下面的单词，想想画线部分是哪个音标。</p>
+    </div>
+
+    <div class="quiz-q reveal">
+      <div class="q-title">1. c<span style="text-decoration:underline">a</span>t 小猫</div>
+      <div class="opts">
+        <button class="opt" data-correct="0">A. /e/</button>
+        <button class="opt" data-correct="1">B. /æ/</button>
+        <button class="opt" data-correct="0">C. /ɑː/</button>
+      </div>
+      <div class="fb"></div>
+    </div>
+
+    <div class="quiz-q reveal">
+      <div class="q-title">2. sh<span style="text-decoration:underline">ee</span>p 绵羊</div>
+      <div class="opts">
+        <button class="opt" data-correct="1">A. /iː/</button>
+        <button class="opt" data-correct="0">B. /ɪ/</button>
+        <button class="opt" data-correct="0">C. /e/</button>
+      </div>
+      <div class="fb"></div>
+    </div>
+
+    <div class="quiz-q reveal">
+      <div class="q-title">3. <span style="text-decoration:underline">sh</span>irt 衬衫</div>
+      <div class="opts">
+        <button class="opt" data-correct="0">A. /s/</button>
+        <button class="opt" data-correct="1">B. /ʃ/</button>
+        <button class="opt" data-correct="0">C. /t/</button>
+      </div>
+      <div class="fb"></div>
+    </div>
+
+    <div class="quiz-q reveal">
+      <div class="q-title">4. d<span style="text-decoration:underline">ay</span> 白天</div>
+      <div class="opts">
+        <button class="opt" data-correct="0">A. /ɑː/</button>
+        <button class="opt" data-correct="0">B. /aɪ/</button>
+        <button class="opt" data-correct="1">C. /eɪ/</button>
+      </div>
+      <div class="fb"></div>
+    </div>
+
+    <div class="quiz-q reveal">
+      <div class="q-title">5. b<span style="text-decoration:underline">ir</span>d 鸟</div>
+      <div class="opts">
+        <button class="opt" data-correct="1">A. /ɜː/</button>
+        <button class="opt" data-correct="0">B. /e/</button>
+        <button class="opt" data-correct="0">C. /ɑː/</button>
+      </div>
+      <div class="fb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 发音口诀 -->
+<section>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">发音小口诀</span>
+      <h2>记住这四句</h2>
+      <p class="sub">口诀一背，发音不累。</p>
+    </div>
+    <div class="rules">
+      <div class="rule reveal">
+        <h4>一、有两点长长读</h4>
+        <p><span class="sym">/iː/ /ɑː/ /ɔː/ /uː/ /ɜː/</span> 音标里有两个小点点，声音就要拉长一点。</p>
+      </div>
+      <div class="rule reveal">
+        <h4>二、摸喉咙分清浊</h4>
+        <p>手摸喉咙，抖的是浊辅音：<span class="sym">/b/ /d/ /g/ /v/ /z/ /ʒ/</span> …… 不抖的是清辅音。</p>
+      </div>
+      <div class="rule reveal">
+        <h4>三、双元音滑过去</h4>
+        <p>两个音标连在一起，前面长又重，后面短又轻，像坐滑梯一样滑过去。</p>
+      </div>
+      <div class="rule reveal">
+        <h4>四、咬舌音轻轻咬</h4>
+        <p><span class="sym">/θ/ /ð/</span> 两个音，舌尖轻轻放在上下牙齿中间，不要咬太重哦。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 结尾 -->
+<section class="final">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="medal">🏆</div>
+      <h2>恭喜通关！</h2>
+      <p class="sub">48 个音标你都认识啦 🎉</p>
+      <div class="task">
+        <strong>课后小任务：</strong><br>
+        每天早上大声读 <b>5 分钟</b>；<br>
+        看到生词先猜音标，再查字典。
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ================= 有道真人发音引擎 ================= */
+/* 有道词典发音接口：
+   英音 type=1，美音 type=2
+   例：https://dict.youdao.com/dictvoice?audio=see&type=2
+*/
+const YOUDAO_BASE = 'https://dict.youdao.com/dictvoice';
+let audioPlayer = null;
+let toastTimer = null;
+
+function showToast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 1600);
+}
+
+function getAudioPlayer(){
+  if(!audioPlayer){
+    audioPlayer = new Audio();
+    audioPlayer.preload = 'auto';
+  }
+  return audioPlayer;
+}
+
+/* 用有道播放单词 */
+function playYoudao(word, accent){
+  return new Promise((resolve, reject) => {
+    if(!word){ reject(new Error('空单词')); return; }
+    const type = accent === 'uk' ? 1 : 2;   // 默认美音
+    const url = `${YOUDAO_BASE}?audio=${encodeURIComponent(word)}&type=${type}`;
+    const player = getAudioPlayer();
+
+    player.pause();
+    player.currentTime = 0;
+    player.src = url;
+
+    const cleanup = () => {
+      player.removeEventListener('canplay', onCanPlay);
+      player.removeEventListener('error', onError);
+    };
+    const onCanPlay = () => { cleanup(); };
+    const onError = () => { cleanup(); reject(new Error('音频加载失败')); };
+
+    player.addEventListener('canplay', onCanPlay, { once:true });
+    player.addEventListener('error', onError, { once:true });
+
+    const p = player.play();
+    if(p !== undefined){
+      p.then(() => { cleanup(); resolve(); })
+       .catch((err) => { cleanup(); reject(err); });
+    }else{
+      cleanup();
+      resolve();
+    }
+  });
+}
+
+/* 系统 TTS 兜底（有道不可用时） */
+const synth = window.speechSynthesis;
+let enVoice = null;
+function pickVoice(){
+  if(!synth) return;
+  const vs = synth.getVoices();
+  enVoice = vs.find(v => /en-US/i.test(v.lang))
+         || vs.find(v => /^en/i.test(v.lang))
+         || null;
+}
+pickVoice();
+if(synth) synth.onvoiceschanged = pickVoice;
+
+function speakFallback(text){
+  if(!synth || !text) return;
+  synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.82;
+  if(enVoice) u.voice = enVoice;
+  synth.speak(u);
+}
+
+/* 统一发音入口 */
+async function pronounce(word, fallbackText){
+  try{
+    await playYoudao(word);
+  }catch(err){
+    console.warn('有道发音不可用，回退系统 TTS', err);
+    speakFallback(fallbackText || word);
+    showToast('真人发音加载失败，已切换为系统语音');
+  }
+}
+
+/* 音标 → 标准例词映射表（点击音标时播放该例词，听到的就是该音标的标准发音） */
+const IPA_WORD = {
+  'iː': 'see',   'ɪ': 'sit',   'e': 'egg',    'æ': 'cat',
+  'ɑː': 'car',   'ɒ': 'dog',   'ɔː': 'door',   'uː': 'food',
+  'ʊ': 'book',   'ʌ': 'cup',   'ɜː': 'bird',   'ə': 'about',
+  'eɪ': 'cake',  'aɪ': 'bike',  'ɔɪ': 'boy',   'əʊ': 'go',
+  'aʊ': 'cow',   'ɪə': 'ear',   'eə': 'hair',   'ʊə': 'tour',
+  'p': 'pen',  'b': 'book', 't': 'ten',  'd': 'dog',
+  'k': 'cat',  'g': 'go',   'f': 'fish', 'v': 'very',
+  's': 'sun',  'z': 'zoo',
+  'θ': 'think', 'ð': 'this',
+  'ʃ': 'she',  'ʒ': 'vision',
+  'tʃ': 'chair', 'dʒ': 'jump',
+  'tr': 'tree', 'dr': 'dream',
+  'ts': 'cats', 'dz': 'beds',
+  'm': 'mum',  'n': 'no',   'ŋ': 'sing',
+  'l': 'leg',  'r': 'red',
+  'j': 'yes',  'w': 'we',   'h': 'hat'
+};
+
+function getIpaKey(el){
+  const raw = el.dataset.ipa || '';
+  return raw.replace(/\//g,'').replace(/\s+/g,'').trim();
+}
+
+function flash(el){
+  el.classList.remove('pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+}
+
+/* ================= 全局点击发音 ================= */
+document.addEventListener('click', function(e){
+  /* 点击音标 */
+  const ipaEl = e.target.closest('[data-ipa]');
+  if(ipaEl){
+    e.stopPropagation();
+    const key = getIpaKey(ipaEl);
+    const word = IPA_WORD[key];
+    if(word){
+      pronounce(word, word);
+    }else{
+      /* 极端兜底：没有映射就用音标本身作为提示 */
+      showToast('暂无该音标的例词');
+    }
+    flash(ipaEl);
+    return;
+  }
+
+  /* 点击单词 */
+  const wordEl = e.target.closest('[data-word]');
+  if(wordEl){
+    e.stopPropagation();
+    const w = wordEl.dataset.word;
+    pronounce(w, w);
+    flash(wordEl);
+    return;
+  }
+});
+
+/* ================= 测验逻辑 ================= */
+document.querySelectorAll('.quiz-q').forEach(function(q){
+  q.querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(q.classList.contains('answered')) return;
+      q.classList.add('answered');
+
+      const isRight = btn.dataset.correct === '1';
+      if(isRight){
+        btn.classList.add('right');
+      }else{
+        btn.classList.add('wrong');
+        const right = q.querySelector('.opt[data-correct="1"]');
+        if(right) right.classList.add('right');
+      }
+
+      const fb = q.querySelector('.fb');
+      fb.textContent = isRight ? '✅ 太棒了，就是这个音！' : '❌ 再想想，正确答案已经标出来啦～';
+      fb.className = 'fb ' + (isRight ? 'ok' : 'no');
+    });
+  });
+});
+
+/* ================= 滚动进度条 ================= */
+const bar = document.getElementById('progress');
+window.addEventListener('scroll', function(){
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = h > 0 ? (window.scrollY / h) * 100 : 0;
+  bar.style.width = p + '%';
+}, {passive:true});
+
+/* ================= 入场动画 ================= */
+const io = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(en.isIntersecting){
+      en.target.classList.add('show');
+      io.unobserve(en.target);
+    }
+  });
+}, {threshold: 0.12});
+
+document.querySelectorAll('.reveal').forEach(function(el, i){
+  el.style.transitionDelay = (i % 6) * 55 + 'ms';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
